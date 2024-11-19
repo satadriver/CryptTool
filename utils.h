@@ -2,6 +2,7 @@
 
 #include <Windows.h>
 
+void hex2str(char* hex, int len);
 
 int FWriter(const CHAR* filename, const CHAR* lpbuf, int lpsize, int append);
 

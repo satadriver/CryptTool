@@ -138,3 +138,14 @@ int str2hex(unsigned char* str,unsigned char *dst) {
 
 	return dstlen;
 }
+
+
+
+void hex2str(char * hex,int len)
+{
+	for (int i = 0; i < len; i++)
+		printf("%02X", hex[i]);
+
+	printf("\r\n");
+
+}

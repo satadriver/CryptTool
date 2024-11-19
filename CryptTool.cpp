@@ -9,7 +9,7 @@
 using namespace std;
 
 
-#define DEFAULT_OUTPUT_FN	"out"
+#define DEFAULT_OUTPUT_FN	"out.txt"
 
 
 
@@ -22,14 +22,16 @@ int main(int argc,char ** argv)
 	}
 
 	for (int i = 1; i < argc; i++) {
-		if (lstrcmpiA(argv[i], "--b64en") == 0) {
+		if (lstrcmpiA(argv[i], "--encode") == 0) {
 			string code = "";
 			char * in = argv[i + 2];
 			if (lstrcmpiA(argv[i + 1], "-if") == 0) {
 				char* data = 0;
 				int fs = 0;
-				int ret = FReader(in, &data, &fs);
-				code = base64_encode(data, fs);
+				ret = FReader(in, &data, &fs);
+				if (ret) {
+					code = base64_encode(data, fs);
+				}			
 			}
 			else if (lstrcmpiA(argv[i + 1], "-is") == 0) {
 				code = base64_encode(in, lstrlenA(in));
@@ -59,7 +61,7 @@ int main(int argc,char ** argv)
 			}
 			break;
 		}
-		else if (lstrcmpiA(argv[i], "--b64de") == 0) {
+		else if (lstrcmpiA(argv[i], "--decode") == 0) {
 			string code = "";
 			char* in = argv[i + 2];
 			if (lstrcmpiA(argv[i + 1], "-if") == 0) {
@@ -97,7 +99,7 @@ int main(int argc,char ** argv)
 			}
 			break;
 		}
-		else if (lstrcmpiA(argv[i], "--sha1en") == 0) {
+		else if (lstrcmpiA(argv[i], "--sha1") == 0) {
 			unsigned char code[32];
 			int codeLen = 20;
 			char* in = argv[i + 2];
@@ -105,7 +107,9 @@ int main(int argc,char ** argv)
 				char* data = 0;
 				int fs = 0;
 				ret = FReader(in, &data, &fs);
-				sha1((unsigned char *)data, fs, code);
+				if (ret) {
+					sha1((unsigned char*)data, fs, code);
+				}		
 			}
 			else if (lstrcmpiA(argv[i + 1], "-is") == 0) {
 				sha1((unsigned char*)in, lstrlenA(in), code);
@@ -116,7 +120,7 @@ int main(int argc,char ** argv)
 				sha1((unsigned char*)base64, len, code);
 			}
 			else {
-				printf("%s base64 param error\r\n", __FUNCTION__);
+				printf("%s sha1 param error\r\n", __FUNCTION__);
 				return FALSE;
 			}
 
@@ -131,9 +135,12 @@ int main(int argc,char ** argv)
 			else {
 
 			}
+			code[codeLen] = 0;
+			printf("sha1 result:\r\n");
+			hex2str((char*)code, codeLen);
 			break;
 		}
-		else if (lstrcmpiA(argv[i], "--md5en") == 0) {
+		else if (lstrcmpiA(argv[i], "--md5") == 0) {
 			unsigned char code[20];
 			int codeLen = 16;
 			char* in = argv[i + 2];
@@ -141,8 +148,10 @@ int main(int argc,char ** argv)
 				char* data = 0;
 				int fs = 0;
 				ret = FReader(in, &data, &fs);
-
-				GetMD5((unsigned char*)data, fs, code, 0);
+				if (ret) {
+					GetMD5((unsigned char*)data, fs, code, 0);
+				}
+				
 
 			}
 			else if (lstrcmpiA(argv[i + 1], "-is") == 0) {
@@ -154,7 +163,7 @@ int main(int argc,char ** argv)
 				GetMD5((unsigned char*)in, len, code, 0);
 			}
 			else {
-				printf("%s base64 param error\r\n", __FUNCTION__);
+				printf("%s md5 param error\r\n", __FUNCTION__);
 				return FALSE;
 			}
 
@@ -169,9 +178,11 @@ int main(int argc,char ** argv)
 			else {
 
 			}
+			printf("md5 result:\r\n");
+			hex2str((char*)code, codeLen);
 			break;
 		}
-		else if (lstrcmpiA(argv[i], "--md5de") == 0) {
+		else {
 			break;
 		}
 	}
