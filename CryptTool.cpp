@@ -69,7 +69,7 @@ int main(int argc,char ** argv)
 				int fs = 0;
 				int ret = FReader(in, &data, &fs);
 				string base64 = string(data,fs);
-				code = base64_decode(code);
+				code = base64_decode(base64);
 			}
 			else if (lstrcmpiA(argv[i + 1], "-is") == 0) {
 				code = base64_decode(in);
