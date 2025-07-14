@@ -21,7 +21,7 @@
 
 
 
-int FReader(const CHAR* filename, CHAR** lpbuf, int* lpsize) {
+int FReader(const CHAR* filename, CHAR** lpbuf, __int64* lpsize) {
 	int result = 0;
 
 	HANDLE hf = CreateFileA(filename, GENERIC_READ, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
@@ -38,6 +38,8 @@ int FReader(const CHAR* filename, CHAR** lpbuf, int* lpsize) {
 		CloseHandle(hf);
 		return FALSE;
 	}
+
+	result = SetFilePointer(hf, 0, 0, FILE_BEGIN);
 
 	if (lpbuf)
 	{
@@ -148,4 +150,17 @@ void hex2str(char * hex,int len)
 
 	printf("\r\n");
 
+}
+
+
+int GetNameFromPath(char* path,char * name) {
+	int len = lstrlenA(path);
+	for (int i = len; i >= 0; i--) {
+		if (path[i] == '\\') {
+			lstrcpyA(name, path + i + 1);
+			return lstrlenA(path + i + 1);
+
+		}
+	}
+	return 0;
 }

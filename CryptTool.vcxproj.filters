@@ -33,6 +33,12 @@
     <ClCompile Include="md5.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="compress.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="binwalkELF.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base64.h">
@@ -48,6 +54,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="md5.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="compress.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="binwalkELF.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
