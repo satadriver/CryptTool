@@ -27,6 +27,8 @@ int main(int argc,char ** argv)
 {
 	int ret = 0;
 
+	//Compress::testcompress();
+
 	if (argc <= 1) {
 		return FALSE;
 	}
@@ -89,8 +91,6 @@ int main(int argc,char ** argv)
 		else if (lstrcmpiA(argv[seq], "--split_binwalk_elf") == 0) {
 			action = SPLIT_BINWALK_ELF;
 			seq++;
-			
-
 		}
 		else {
 			seq++;
