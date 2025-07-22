@@ -107,7 +107,7 @@ int FWriter(const CHAR* filename,const CHAR* lpbuf, int lpsize, int append) {
 const char* gNumStr = "0123456789ABCDEF";
 
 
-int str2hex(unsigned char* str,unsigned char *dst) {
+int str2hex_old(unsigned char* str,unsigned char *dst) {
 	int dstlen = 0;
 	int len = lstrlenA((char*)str);
 	for (int i = 0; i < len; i+=2) {
@@ -143,13 +143,81 @@ int str2hex(unsigned char* str,unsigned char *dst) {
 
 
 
-void hex2str(char * hex,int len)
+int hex2str(char * hex,int len,char * dst)
 {
+	int dstlen = 0;
 	for (int i = 0; i < len; i++)
-		printf("%02X", hex[i]);
+	{
+		unsigned char c = hex[i];
+		unsigned char high = (c >> 4) & 0x0f;
+		unsigned char low = (c) & 0x0f;
+		if(high >9){
+			high = high + 55;
+		}
+		else {
+			high = high + 48;
+		}
+		if (low > 9) {
+			low = low + 55;
+		}
+		else {
+			low = low + 48;
+		}
+		dst[dstlen++] = high;
+		dst[dstlen++] = low;
+	}
 
-	printf("\r\n");
+	return dstlen;
+}
 
+
+int str2hex(char * str,char * dst) {
+	int dstlen = 0;
+	int len = lstrlenA(str);
+	for (int i = 0; i < len; i++) {
+		if (str[i] == '\\' && (str[i + 1] == 'x' || str[i + 1] == 'X')) {
+			i += 2;
+			unsigned char low = str[i];
+			unsigned char high = str[i+1];
+
+			if (low >= 'a' && low <= 'f') {
+				low = low - 0x20;
+				low = low - 55;
+			}
+			else if (low >= 'A' && low <= 'F') {
+				low = low - 55;
+			}
+			else if (low >= '0' && low <= '9') {
+				low = low - 48;
+			}
+			else {
+				break;
+			}
+
+			if (high >= 'a' && high <= 'f') {
+				high = high - 0x20;
+				high = high - 55;
+			}
+			else if (high >= 'A' && high <= 'F') {
+				high = high - 55;
+			}
+			else if (high >= '0' && high <= '9') {
+				high = high - 48;
+			}
+			else {
+				break;
+			}
+
+			unsigned char c = (high << 4) | (low & 0x0f);
+			dst[dstlen] = c;
+			dstlen++;
+		}
+		else {
+			dst[dstlen] = str[i];
+			dstlen++;
+		}
+	}
+	return dstlen;
 }
 
 
@@ -159,7 +227,6 @@ int GetNameFromPath(char* path,char * name) {
 		if (path[i] == '\\') {
 			lstrcpyA(name, path + i + 1);
 			return lstrlenA(path + i + 1);
-
 		}
 	}
 	return 0;

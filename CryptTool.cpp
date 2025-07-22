@@ -7,7 +7,7 @@
 #include "sha1.h"
 #include "compress.h"
 #include "binwalkELF.h"
-
+#include "strsearch.h"
 
 using namespace std;
 
@@ -20,6 +20,7 @@ using namespace std;
 #define MD5_ENCODE		5
 #define COMPRESS		7
 #define UNCOMPRESS		8
+#define STRINGSEARCH	9
 
 #define SPLIT_BINWALK_ELF		0xffffffff
 
@@ -44,6 +45,8 @@ int main(int argc,char ** argv)
 
 	char* data = 0;
 	__int64 dataSize = 0;
+
+	char* option = 0;
 
 	for (int seq = 1; seq < argc; ) {
 		if (lstrcmpiA(argv[seq], "--encode") == 0) {
@@ -83,6 +86,11 @@ int main(int argc,char ** argv)
 
 			seq += 2;
 		}
+		else if (lstrcmpiA(argv[seq], "-is") == 0) {
+			input = argv[seq + 1];
+			inSize = lstrlenA(input);
+			seq += 2;
+		}
 		else if (lstrcmpiA(argv[seq], "-of") == 0) {
 
 			outfn = argv[seq + 1];
@@ -91,6 +99,14 @@ int main(int argc,char ** argv)
 		else if (lstrcmpiA(argv[seq], "--split_binwalk_elf") == 0) {
 			action = SPLIT_BINWALK_ELF;
 			seq++;
+		}
+		else if (lstrcmpiA(argv[seq], "--search") == 0) {
+			action = STRINGSEARCH;
+			option = argv[seq + 1];
+			input = argv[seq + 2];
+			infn = argv[seq + 3];
+			inSize = lstrlenA(input);
+			seq+=4;
 		}
 		else {
 			seq++;
@@ -138,18 +154,19 @@ int main(int argc,char ** argv)
 			data = new char[dataSize];
 		}
 		//ret = Compress::UncompressData((unsigned char*)input, inSize, (unsigned char*)data, (unsigned long*)&dataSize);
-
 		//uncompress_deflate(infn, outfn);
 
 		char filepath[1024];
 		ret = GetNameFromPath(infn, filepath);
 		int num = dzFiles((unsigned char*)input, inSize, (unsigned char*)data, dataSize, filepath);
-	
 	}
 	else if (action == SPLIT_BINWALK_ELF) {
 		char filepath[1024];
 		ret = GetNameFromPath(infn, filepath);
 		ret = SplitBinwalkELF(input, inSize, filepath);
+	}
+	else if (action == STRINGSEARCH) {
+		ret = SearchString(option,input,infn );
 	}
 	else {
 
