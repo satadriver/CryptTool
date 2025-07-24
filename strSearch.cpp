@@ -10,6 +10,10 @@ using namespace std;
 
 
 void upcase(char* str, int size, char* dststr) {
+	if(str == 0 || dststr == 0 || size <= 0) {
+		return;
+	}
+
 	for (int i = 0; i < size; i++) {
 		if (str[i] >= 'A' && str[i] <= 'Z') {
 			dststr[i] = str[i] + 0x20;
@@ -22,6 +26,10 @@ void upcase(char* str, int size, char* dststr) {
 
 
 void lowcase(char* str, int size, char* dststr) {
+	if (str == 0 || dststr == 0 || size <= 0) {
+		return;
+	}
+
 	for (int i = 0; i < size; i++) {
 		if (str[i] >= 'a' && str[i] <= 'z') {
 			dststr[i] = str[i] - 0x20;
@@ -33,8 +41,10 @@ void lowcase(char* str, int size, char* dststr) {
 }
 
 
-int searchStrInFile(const char* szFileName, const char* pDstContent,int len, const wchar_t* wszcontent)
+int SearchInFile(const char* szFileName, const char* pDstContent,int len, const wchar_t* wszcontent)
 {
+	int ret = 0;
+
 	HANDLE hFile = CreateFileA(szFileName, GENERIC_READ | GENERIC_WRITE, FILE_SHARE_READ|FILE_SHARE_WRITE, 
 		0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
 	if (hFile == INVALID_HANDLE_VALUE)
@@ -45,26 +55,26 @@ int searchStrInFile(const char* szFileName, const char* pDstContent,int len, con
 
 	unsigned int asclen = len;
 
-	unsigned int iSize = GetFileSize(hFile, 0);
-	if (iSize < asclen)
+	unsigned int fSize = GetFileSize(hFile, 0);
+	if (fSize < asclen)
 	{
 		CloseHandle(hFile);
 		return FALSE;
 	}
 
-	char* pFileBuf = new char[iSize + 16];
+	char* pFileBuf = new char[fSize + 16];
 
 	DWORD dwCnt = 0;
-	int iRes = ReadFile(hFile, pFileBuf, iSize, &dwCnt, 0);
-	*(pFileBuf + iSize) = 0;
+	ret = ReadFile(hFile, pFileBuf, fSize, &dwCnt, 0);
+	*(pFileBuf + fSize) = 0;
 	CloseHandle(hFile);
-	if (iRes == 0)
+	if (ret == 0)
 	{
 		delete[] pFileBuf;
 		return 0;
 	}
 
-	for (unsigned int i = 0; i <= iSize - asclen; i++)
+	for (unsigned int i = 0; i <= fSize - asclen; i++)
 	{
 		upcase(pFileBuf + i, asclen, pFileBuf + i);
 		if (memcmp(pDstContent, pFileBuf + i, asclen) == 0)
@@ -74,7 +84,12 @@ int searchStrInFile(const char* szFileName, const char* pDstContent,int len, con
 	}
 
 	unsigned int unilen = asclen * sizeof(wchar_t);
-	for (int i = 0; i <= iSize - unilen; i++)
+	if (fSize < unilen)
+	{
+		delete[] pFileBuf;
+		return FALSE;
+	}
+	for (unsigned int i = 0; i <= fSize - unilen; i++)
 	{
 		upcase(pFileBuf + i, unilen, pFileBuf + i);
 		if (memcmp((char*)wszcontent, pFileBuf + i, unilen) == 0)
@@ -87,7 +102,7 @@ int searchStrInFile(const char* szFileName, const char* pDstContent,int len, con
 	return FALSE;
 }
 
-int searchFile(const char* PreStrPath, int iLayer, const char* pDstContent,int len, const wchar_t* wszcontent)
+int SearchInDir(const char* PreStrPath, int iLayer, const char* pDstContent,int len, const wchar_t* wszcontent)
 {
 	int ret = 0;
 
@@ -134,7 +149,7 @@ int searchFile(const char* PreStrPath, int iLayer, const char* pDstContent,int l
 				memcpy(strNextPath + prePathLen + 1, stWfd.cFileName, lstrlenA(stWfd.cFileName));
 			}
 			
-			ret = searchFile(strNextPath, iLayer + 1, pDstContent,len, wszcontent);
+			ret = SearchInDir(strNextPath, iLayer + 1, pDstContent,len, wszcontent);
 			if (ret)
 			{
 
@@ -155,10 +170,9 @@ int searchFile(const char* PreStrPath, int iLayer, const char* pDstContent,int l
 				memcpy(szFileName + prePathLen + 1, stWfd.cFileName, lstrlenA(stWfd.cFileName));
 			}
 						
-			int iFilePos = searchStrInFile(szFileName, pDstContent,len, wszcontent);
+			int iFilePos = SearchInFile(szFileName, pDstContent,len, wszcontent);
 			if (iFilePos)
 			{
-
 				result++;
 			}
 		}
@@ -190,10 +204,10 @@ int SearchString(char* option,char* str,char * path) {
 
 	ret = GetFileAttributesA(path);
 	if (ret & FILE_ATTRIBUTE_DIRECTORY) {
-		ret = searchFile(path, 1, szContent,srclen, wszContent);
+		ret = SearchInDir(path, 1, szContent,srclen, wszContent);
 	}
 	else if (ret & FILE_ATTRIBUTE_ARCHIVE) {
-		ret = searchStrInFile(path, szContent,srclen, wszContent);
+		ret = SearchInFile(path, szContent,srclen, wszContent);
 	}
 	return ret;
 }
@@ -226,7 +240,7 @@ int test(int argc, char** argv)
 
 		MultiByteToWideChar(CP_ACP, 0, inputstr, -1, wszcontent, sizeof(wszcontent));
 
-		ret = searchFile(inputpath, 1, inputstr, lstrlenA(inputstr), wszcontent);
+		ret = SearchInDir(inputpath, 1, inputstr, lstrlenA(inputstr), wszcontent);
 	}
 	else {
 		if (argc == 2)
@@ -240,7 +254,7 @@ int test(int argc, char** argv)
 
 			char szcontent[1024];
 			upcase(argv[1], lstrlenA(argv[1]), szcontent);
-			ret = searchFile(szcurdir, 1, szcontent, lstrlenA(szcontent), wszcontent);
+			ret = SearchInDir(szcurdir, 1, szcontent, lstrlenA(szcontent), wszcontent);
 
 		}
 		else if (argc >= 3)
@@ -261,10 +275,10 @@ int test(int argc, char** argv)
 
 			if (ret & FILE_ATTRIBUTE_DIRECTORY)
 			{
-				ret = searchFile(path.c_str(), 1, szcontent, lstrlenA(szcontent), wszcontent);
+				ret = SearchInDir(path.c_str(), 1, szcontent, lstrlenA(szcontent), wszcontent);
 			}
 			else {
-				ret = searchStrInFile(path.c_str(), szcontent, lstrlenA(szcontent),wszcontent);
+				ret = SearchInFile(path.c_str(), szcontent, lstrlenA(szcontent),wszcontent);
 			}
 		}
 	}

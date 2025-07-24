@@ -54,8 +54,7 @@
               "RelativeToolTip": "md5.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-07-22T10:37:24.699Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-22T10:37:24.699Z"
             },
             {
               "$type": "Document",
@@ -80,8 +79,7 @@
               "RelativeToolTip": "utils.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAsAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-07-22T10:14:14.599Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-22T10:14:14.599Z"
             },
             {
               "$type": "Document",
@@ -93,8 +91,7 @@
               "RelativeToolTip": "utils.cpp",
               "ViewState": "AgIAAMIAAAAAAAAAAAAgwK0AAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-07-22T09:39:50.514Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-22T09:39:50.514Z"
             },
             {
               "$type": "Document",
@@ -104,7 +101,7 @@
               "RelativeDocumentMoniker": "strSearch.cpp",
               "ToolTip": "D:\\Project\\CryptTool\\strSearch.cpp",
               "RelativeToolTip": "strSearch.cpp",
-              "ViewState": "AgIAAKUAAAAAAAAAAAAAALcAAAAhAAAAAAAAAA==",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAAAFYAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-07-22T09:08:59.809Z",
               "EditorCaption": ""
@@ -119,8 +116,7 @@
               "RelativeToolTip": "strSearch.h",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAA2AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-07-22T09:08:39.186Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-22T09:08:39.186Z"
             },
             {
               "$type": "Document",
@@ -130,7 +126,7 @@
               "RelativeDocumentMoniker": "CryptTool.cpp",
               "ToolTip": "D:\\Project\\CryptTool\\CryptTool.cpp",
               "RelativeToolTip": "CryptTool.cpp",
-              "ViewState": "AgIAAJoAAAAAAAAAAAAUwKgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAJoAAAAAAAAAAAAUwKkAAAACAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-07-22T08:59:20.774Z",
               "EditorCaption": ""
@@ -145,8 +141,7 @@
               "RelativeToolTip": "binwalkELF.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-07-22T09:08:43.394Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-22T09:08:43.394Z"
             }
           ]
         }
