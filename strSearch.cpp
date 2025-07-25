@@ -187,11 +187,13 @@ int SearchInDir(const char* PreStrPath, int iLayer, const char* pDstContent,int 
 int SearchString(char* option,char* str,char * path) {
 	int ret = 0;
 	int srclen = 0;
-	char szContent[0x1000];
+	char szContent[0x1000] = { 0 };
 	wchar_t wszContent[0x1000] = { 0 };
 	if (option[0] == 'b') {
 		srclen = str2hex(str, szContent);
+		szContent[srclen] = 0;
 		memcpy(wszContent, szContent, srclen);
+		wszContent[srclen] = 0;
 	}
 	else if (option[0] == 's') {
 		srclen = lstrlenA(str);

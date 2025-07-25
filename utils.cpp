@@ -174,48 +174,48 @@ int hex2str(char * hex,int len,char * dst)
 int str2hex(char * str,char * dst) {
 	int dstlen = 0;
 	int len = lstrlenA(str);
-	for (int i = 0; i < len; i++) {
+	for (int i = 0; i < len; i+=2) {
 		if (str[i] == '\\' && (str[i + 1] == 'x' || str[i + 1] == 'X')) {
 			i += 2;
-			unsigned char low = str[i];
-			unsigned char high = str[i+1];
-
-			if (low >= 'a' && low <= 'f') {
-				low = low - 0x20;
-				low = low - 55;
-			}
-			else if (low >= 'A' && low <= 'F') {
-				low = low - 55;
-			}
-			else if (low >= '0' && low <= '9') {
-				low = low - 48;
-			}
-			else {
-				break;
-			}
-
-			if (high >= 'a' && high <= 'f') {
-				high = high - 0x20;
-				high = high - 55;
-			}
-			else if (high >= 'A' && high <= 'F') {
-				high = high - 55;
-			}
-			else if (high >= '0' && high <= '9') {
-				high = high - 48;
-			}
-			else {
-				break;
-			}
-
-			unsigned char c = (high << 4) | (low & 0x0f);
-			dst[dstlen] = c;
-			dstlen++;
 		}
 		else {
-			dst[dstlen] = str[i];
-			dstlen++;
+
 		}
+
+		unsigned char low = str[i + 1];
+		unsigned char high = str[i];
+
+		if (low >= 'a' && low <= 'f') {
+			low = low - 0x20;
+			low = low - 55;
+		}
+		else if (low >= 'A' && low <= 'F') {
+			low = low - 55;
+		}
+		else if (low >= '0' && low <= '9') {
+			low = low - 48;
+		}
+		else {
+			break;
+		}
+
+		if (high >= 'a' && high <= 'f') {
+			high = high - 0x20;
+			high = high - 55;
+		}
+		else if (high >= 'A' && high <= 'F') {
+			high = high - 55;
+		}
+		else if (high >= '0' && high <= '9') {
+			high = high - 48;
+		}
+		else {
+			break;
+		}
+
+		unsigned char c = (high << 4) | (low & 0x0f);
+		dst[dstlen] = c;
+		dstlen++;
 	}
 	return dstlen;
 }

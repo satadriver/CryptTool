@@ -343,7 +343,7 @@ int Compress::gzfiledata(Byte* data, uLong ndata, Byte* gzdata, uLong* ngzdata) 
 
 	memcpy(gzdata, "\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\x03", 10);
 
-	DWORD gzsize = *ngzdata - 18;
+	DWORD gzsize = *ngzdata - 10 - 4 - 4;
 
 	ret = Compress::gzcompress(data, ndata, gzdata + 10, &gzsize);
 	memcpy(gzdata + 10 + gzsize, &crc, 4);

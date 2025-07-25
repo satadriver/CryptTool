@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "D:\\Project\\CryptTool\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\strSearch.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:strSearch.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
@@ -11,16 +15,20 @@
       "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:CryptTool.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\md5.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:md5.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\compress.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:compress.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\rc4.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:rc4.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\sha1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:sha1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\md5.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:md5.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\utils.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -46,7 +54,33 @@
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
+              "Title": "sha1.cpp",
+              "DocumentMoniker": "D:\\Project\\CryptTool\\sha1.cpp",
+              "RelativeDocumentMoniker": "sha1.cpp",
+              "ToolTip": "D:\\Project\\CryptTool\\sha1.cpp",
+              "RelativeToolTip": "sha1.cpp",
+              "ViewState": "AgIAAG8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-07-25T09:09:44.839Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "rc4.cpp",
+              "DocumentMoniker": "D:\\Project\\CryptTool\\rc4.cpp",
+              "RelativeDocumentMoniker": "rc4.cpp",
+              "ToolTip": "D:\\Project\\CryptTool\\rc4.cpp",
+              "RelativeToolTip": "rc4.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-07-25T09:09:41.104Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "md5.cpp",
               "DocumentMoniker": "D:\\Project\\CryptTool\\md5.cpp",
               "RelativeDocumentMoniker": "md5.cpp",
@@ -54,61 +88,64 @@
               "RelativeToolTip": "md5.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-07-22T10:37:24.699Z"
+              "WhenOpened": "2025-07-22T10:37:24.699Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "compress.cpp",
               "DocumentMoniker": "D:\\Project\\CryptTool\\compress.cpp",
               "RelativeDocumentMoniker": "compress.cpp",
               "ToolTip": "D:\\Project\\CryptTool\\compress.cpp",
               "RelativeToolTip": "compress.cpp",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAAAFIAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-07-22T10:18:15.604Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "utils.h",
-              "DocumentMoniker": "D:\\Project\\CryptTool\\utils.h",
-              "RelativeDocumentMoniker": "utils.h",
-              "ToolTip": "D:\\Project\\CryptTool\\utils.h",
-              "RelativeToolTip": "utils.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAsAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-07-22T10:14:14.599Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 0,
               "Title": "utils.cpp",
               "DocumentMoniker": "D:\\Project\\CryptTool\\utils.cpp",
               "RelativeDocumentMoniker": "utils.cpp",
               "ToolTip": "D:\\Project\\CryptTool\\utils.cpp",
               "RelativeToolTip": "utils.cpp",
-              "ViewState": "AgIAAMIAAAAAAAAAAAAgwK0AAAALAAAAAAAAAA==",
+              "ViewState": "AgIAANAAAAAAAAAAAAAQwOEAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-07-22T09:39:50.514Z"
+              "WhenOpened": "2025-07-22T09:39:50.514Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "strSearch.cpp",
               "DocumentMoniker": "D:\\Project\\CryptTool\\strSearch.cpp",
               "RelativeDocumentMoniker": "strSearch.cpp",
               "ToolTip": "D:\\Project\\CryptTool\\strSearch.cpp",
               "RelativeToolTip": "strSearch.cpp",
-              "ViewState": "AgIAAEQAAAAAAAAAAAAAAFYAAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAALMAAAAAAAAAAAAUwL8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-07-22T09:08:59.809Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
+              "Title": "CryptTool.cpp",
+              "DocumentMoniker": "D:\\Project\\CryptTool\\CryptTool.cpp",
+              "RelativeDocumentMoniker": "CryptTool.cpp",
+              "ToolTip": "D:\\Project\\CryptTool\\CryptTool.cpp",
+              "RelativeToolTip": "CryptTool.cpp",
+              "ViewState": "AgIAAJcAAAAAAAAAAAAUwK4AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-07-22T08:59:20.774Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "strSearch.h",
               "DocumentMoniker": "D:\\Project\\CryptTool\\strSearch.h",
               "RelativeDocumentMoniker": "strSearch.h",
@@ -120,20 +157,19 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CryptTool.cpp",
-              "DocumentMoniker": "D:\\Project\\CryptTool\\CryptTool.cpp",
-              "RelativeDocumentMoniker": "CryptTool.cpp",
-              "ToolTip": "D:\\Project\\CryptTool\\CryptTool.cpp",
-              "RelativeToolTip": "CryptTool.cpp",
-              "ViewState": "AgIAAJoAAAAAAAAAAAAUwKkAAAACAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-07-22T08:59:20.774Z",
-              "EditorCaption": ""
+              "DocumentIndex": 7,
+              "Title": "utils.h",
+              "DocumentMoniker": "D:\\Project\\CryptTool\\utils.h",
+              "RelativeDocumentMoniker": "utils.h",
+              "ToolTip": "D:\\Project\\CryptTool\\utils.h",
+              "RelativeToolTip": "utils.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-07-22T10:14:14.599Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "binwalkELF.cpp",
               "DocumentMoniker": "D:\\Project\\CryptTool\\binwalkELF.cpp",
               "RelativeDocumentMoniker": "binwalkELF.cpp",
