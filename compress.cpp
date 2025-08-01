@@ -1,14 +1,15 @@
 
+#include <windows.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "..\\include\\zlib.h"
 #include "..\\include\\zconf.h"
 
 #include "compress.h"
 
-#include <windows.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include "utils.h"
 
+#include "utils.h"
+#include "FileUtils.h"
 
 #ifdef _WIN64
 #pragma comment(lib,"../lib/zlibstat.lib")

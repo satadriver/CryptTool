@@ -1,15 +1,16 @@
 
 
 
-#include <windows.h>
-#include <Shlobj.h>
-#include <stdio.h>
-#include <io.h>
-#include <UserEnv.h>
-#include <tlhelp32.h>
-#include <WtsApi32.h>
-#include <Shlwapi.h>
-#include <Psapi.h>
+
+
+
+#include <Windows.h>
+#include "utils.h"
+
+#include <lmwksta.h>
+#include <lmerr.h>
+
+#pragma comment(lib,"Netapi32.lib")
 
 
 #pragma comment(lib,"wtsapi32.lib")
@@ -21,85 +22,7 @@
 
 
 
-int FReader(const CHAR* filename, CHAR** lpbuf, __int64* lpsize) {
-	int result = 0;
 
-	HANDLE hf = CreateFileA(filename, GENERIC_READ, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
-	if (hf == INVALID_HANDLE_VALUE)
-	{
-		result = GetLastError();
-		delete* lpbuf;
-		return FALSE;
-	}
-
-	DWORD highsize = 0;
-	*lpsize = GetFileSize(hf, &highsize);
-	if (*lpsize == 0) {
-		CloseHandle(hf);
-		return FALSE;
-	}
-
-	result = SetFilePointer(hf, 0, 0, FILE_BEGIN);
-
-	if (lpbuf)
-	{
-		if (*lpbuf == 0)
-		{
-			*lpbuf = new CHAR[*lpsize + 1024];
-			*(*lpbuf) = 0;
-		}
-	}
-	else {
-		CloseHandle(hf);
-		return FALSE;
-	}
-
-	DWORD readsize = 0;
-	result = ReadFile(hf, *lpbuf, *lpsize, &readsize, 0);
-	if (result > 0)
-	{
-		*(CHAR*)((char*)*lpbuf + readsize) = 0;
-	}
-	else {
-		result = GetLastError();
-		readsize = 0;
-	}
-	CloseHandle(hf);
-	return readsize;
-}
-
-
-
-
-int FWriter(const CHAR* filename,const CHAR* lpbuf, int lpsize, int append) {
-	int result = 0;
-	HANDLE h = INVALID_HANDLE_VALUE;
-	if (append)
-	{
-		h = CreateFileA(filename, GENERIC_WRITE, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);
-		if (h == INVALID_HANDLE_VALUE)
-		{
-			return FALSE;
-		}
-		DWORD highsize = 0;
-		DWORD filesize = GetFileSize(h, &highsize);
-
-		result = SetFilePointer(h, filesize, (long*)&highsize, FILE_BEGIN);
-	}
-	else {
-		h = CreateFileA(filename, GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
-		if (h == INVALID_HANDLE_VALUE)
-		{
-			return FALSE;
-		}
-	}
-
-	DWORD writesize = 0;
-	result = WriteFile(h, lpbuf, lpsize * sizeof(CHAR), &writesize, 0);
-	FlushFileBuffers(h);
-	CloseHandle(h);
-	return result;
-}
 
 
 
@@ -230,4 +153,160 @@ int GetNameFromPath(char* path,char * name) {
 		}
 	}
 	return 0;
+}
+
+
+int GetWindowsVersion()
+{
+	WKSTA_INFO_100* wkstaInfo = NULL;
+	NET_API_STATUS netStatus = NetWkstaGetInfo(NULL, 100, (LPBYTE*)&wkstaInfo);
+	if (netStatus == NERR_Success)
+	{
+		DWORD dwMajVer = wkstaInfo->wki100_ver_major;
+		DWORD dwMinVer = wkstaInfo->wki100_ver_minor;
+		DWORD dwVersion = (DWORD)MAKELONG(dwMinVer, dwMajVer);
+		//netStatus = NetApiBufferFree(wkstaInfo);
+
+		int iSystemVersion = 0;
+		if (dwVersion < 0x50000)
+		{
+			iSystemVersion = SYSTEM_VERSION_WIN9X;
+		}
+		else if (dwVersion == 0x50000)
+		{
+
+			iSystemVersion = SYSTEM_VERSION_WIN2000;
+		}
+		else if (dwVersion > 0x50000 && dwVersion < 0x60000)
+		{
+
+			iSystemVersion = SYSTEM_VERSION_XP;
+		}
+		else if (dwVersion == 0x60000)
+		{
+
+			iSystemVersion = SYSTEM_VERSION_VISTA;
+		}
+		else if (dwVersion == 0x60001)
+		{
+
+			iSystemVersion = SYSTEM_VERSION_WIN7;
+		}
+		else if (dwVersion >= 0x60002 && dwVersion <= 0x60003)
+		{
+
+			iSystemVersion = SYSTEM_VERSION_WIN8;
+		}
+		else if (dwVersion >= 0x60003 || dwVersion == 0x100000)
+		{
+
+			iSystemVersion = SYSTEM_VERSION_WIN10;
+		}
+		else
+		{
+			iSystemVersion = SYSTEM_VERSION_UNKNOW;
+		}
+		return iSystemVersion;
+	}
+
+	return FALSE;
+}
+
+BOOL IsCpu64Bit()
+{
+	SYSTEM_INFO si;
+	GetNativeSystemInfo(&si);
+	if (si.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_AMD64 ||
+		si.wProcessorArchitecture == PROCESSOR_ARCHITECTURE_IA64)
+		return 64;
+	else
+		return 32;
+}
+
+
+int IsSystem64Bit()
+{
+	typedef BOOL(WINAPI* LPFN_ISWOW64PROCESS) (HANDLE, PBOOL);
+	BOOL bIsWow64 = FALSE;
+	//IsWow64Process is not available on all supported versions of Windows
+	char szIsWow64Process[] = { 'I','s','W','o','w','6','4','P','r','o','c','e','s','s',0 };
+	HMODULE lpDllKernel32 = LoadLibraryA("kernel32.dll");
+	LPFN_ISWOW64PROCESS fnIsWow64Process = (LPFN_ISWOW64PROCESS)GetProcAddress(lpDllKernel32, szIsWow64Process);
+	if (NULL != fnIsWow64Process)
+	{
+		int iRet = fnIsWow64Process(GetCurrentProcess(), &bIsWow64);
+		if (iRet && bIsWow64)
+		{
+			return 64;
+		}
+	}
+
+	return 32;
+}
+
+
+int QueryRegistryValue(HKEY hMainKey, char* szSubKey,unsigned long type, char* szKeyName, unsigned char* szKeyValue)
+{
+	unsigned long iType = KEY_READ;
+	DWORD dwDisPos = REG_OPENED_EXISTING_KEY;
+	HKEY hKey = 0;
+	int iRes = 0;
+
+
+	int iCpuBits = IsCpu64Bit();
+
+	int ver = GetWindowsVersion();
+	PVOID dwWow64Value=0;
+	if (ver >= 4)
+	{
+		if (iCpuBits == 64 && hMainKey == HKEY_LOCAL_MACHINE)
+		{
+			HMODULE lpDllKernel32 = LoadLibraryA("kernel32.dll");
+			typedef void(__stdcall* ptrWow64DisableWow64FsRedirection)(PVOID);
+			ptrWow64DisableWow64FsRedirection lpWow64DisableWow64FsRedirection =
+				(ptrWow64DisableWow64FsRedirection)GetProcAddress(lpDllKernel32, "Wow64DisableWow64FsRedirection");
+			if (lpWow64DisableWow64FsRedirection )
+			{
+				lpWow64DisableWow64FsRedirection(&dwWow64Value);
+				iType |= KEY_WOW64_64KEY;
+			}
+		}
+	}
+
+	//KEY_WEITE will cause error like winlogon
+	//winlogon :Registry symbolic links should only be used for for application compatibility when absolutely necessary.
+	iRes = RegCreateKeyExA(hMainKey, szSubKey, 0, REG_NONE, REG_OPTION_NON_VOLATILE, iType, 0, &hKey, &dwDisPos);
+
+	if (ver >= 4)
+	{
+		if (iCpuBits == 64 && hMainKey == HKEY_LOCAL_MACHINE)
+		{
+			HMODULE lpDllKernel32 = LoadLibraryA("kernel32.dll");
+			typedef void(__stdcall* ptrWow64RevertWow64FsRedirection)(PVOID);
+			ptrWow64RevertWow64FsRedirection lpWow64RevertWow64FsRedirection =
+				(ptrWow64RevertWow64FsRedirection)GetProcAddress(lpDllKernel32, "Wow64RevertWow64FsRedirection");
+			if (lpWow64RevertWow64FsRedirection )
+			{
+				lpWow64RevertWow64FsRedirection(&dwWow64Value);
+			}
+		}
+	}
+
+	if (iRes != ERROR_SUCCESS)
+	{
+		return FALSE;
+	}
+
+	//if value is 234 ,it means out buffer is limit
+	//2 is not value
+	unsigned long iQueryLen = MAX_PATH;
+	iRes = RegQueryValueExA(hKey, szKeyName, 0, &type, szKeyValue, &iQueryLen);
+	if (iRes == ERROR_SUCCESS)
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
 }

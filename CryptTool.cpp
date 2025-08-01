@@ -1,6 +1,12 @@
 ﻿
-#include <iostream>
+
+// 正确顺序
+#define _WIN32_WINNT 0x0A00
 #include <windows.h>
+
+
+#include <iostream>
+
 #include "utils.h"
 #include "base64.h"
 #include "md5.h"
@@ -8,6 +14,9 @@
 #include "compress.h"
 #include "binwalkELF.h"
 #include "strsearch.h"
+#include "FileUtils.h"
+#include "Proxy.h"
+#include <Windows.h>
 
 using namespace std;
 
@@ -21,6 +30,7 @@ using namespace std;
 #define COMPRESS		7
 #define UNCOMPRESS		8
 #define STRINGSEARCH	9
+#define NETWORKPROXY	10
 
 #define SPLIT_BINWALK_ELF		0xffffffff
 
@@ -108,6 +118,10 @@ int main(int argc,char ** argv)
 			inSize = lstrlenA(input);
 			seq+=4;
 		}
+		else if (lstrcmpA(argv[seq], "--proxy") == 0) {
+			action = NETWORKPROXY;
+			seq++;
+		}
 		else {
 			seq++;
 		}
@@ -167,6 +181,9 @@ int main(int argc,char ** argv)
 	}
 	else if (action == STRINGSEARCH) {
 		ret = SearchString(option,input,infn );
+	}
+	else if (action == NETWORKPROXY) {
+		//ret = NetworkProxy();
 	}
 	else {
 

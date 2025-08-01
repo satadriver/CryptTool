@@ -1,9 +1,10 @@
 
-
+#include <Windows.h>
 #include "utils.h"
 
-#include "binwalkELF.h"
 
+#include "binwalkELF.h"
+#include "FileUtils.h"
 
 
 int SplitBinwalkELF(char* data,int size,char * path) {
