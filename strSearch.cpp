@@ -112,7 +112,7 @@ int SearchInDir(const char* PreStrPath, int iLayer, const char* pDstContent,int 
 
 	char strPath[0x1000] = { 0 };
 	memcpy(strPath, PreStrPath, prePathLen);
-	if (PreStrPath[prePathLen] == '\\' || PreStrPath[prePathLen] == '/') {
+	if (PreStrPath[prePathLen-1] == '\\' || PreStrPath[prePathLen-1] == '/') {
 		memcpy(strPath + prePathLen, "*.*", lstrlenA("*.*"));
 	}
 	else {
@@ -141,7 +141,7 @@ int SearchInDir(const char* PreStrPath, int iLayer, const char* pDstContent,int 
 			char strNextPath[0x1000] = { 0 };
 
 			memcpy(strNextPath, PreStrPath, prePathLen);
-			if (PreStrPath[prePathLen] == '\\' || PreStrPath[prePathLen] == '/') {
+			if (PreStrPath[prePathLen-1] == '\\' || PreStrPath[prePathLen-1] == '/') {
 				memcpy(strNextPath + prePathLen , stWfd.cFileName, lstrlenA(stWfd.cFileName));
 			}
 			else {
@@ -162,7 +162,7 @@ int SearchInDir(const char* PreStrPath, int iLayer, const char* pDstContent,int 
 		{
 			char szFileName[0x1000] = { 0 };
 			memcpy(szFileName, PreStrPath, prePathLen);
-			if (PreStrPath[prePathLen] == '\\' || PreStrPath[prePathLen] == '/') {
+			if (PreStrPath[prePathLen-1] == '\\' || PreStrPath[prePathLen-1] == '/') {
 				memcpy(szFileName + prePathLen , stWfd.cFileName, lstrlenA(stWfd.cFileName));
 			}
 			else {
