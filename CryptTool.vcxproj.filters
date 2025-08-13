@@ -48,6 +48,9 @@
     <ClCompile Include="FileUtils.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="network.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base64.h">
@@ -81,6 +84,12 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Packet.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="network.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="CryptTool.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

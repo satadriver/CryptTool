@@ -16,23 +16,13 @@
 #include "strsearch.h"
 #include "FileUtils.h"
 #include "Proxy.h"
-#include <Windows.h>
+#include "CryptTool.h"
+#include "network.h"
+
 
 using namespace std;
 
 
-#define DEFAULT_OUTPUT_FN	"out.txt"
-
-#define BASE64_ENCODE	1
-#define BASE64_DECODE	2
-#define SHA1_ENCODE		3
-#define MD5_ENCODE		5
-#define COMPRESS		7
-#define UNCOMPRESS		8
-#define STRINGSEARCH	9
-#define NETWORKPROXY	10
-
-#define SPLIT_BINWALK_ELF		0xffffffff
 
 int main(int argc,char ** argv)
 {
@@ -82,6 +72,14 @@ int main(int argc,char ** argv)
 		else if (lstrcmpiA(argv[seq], "--compress") == 0) {
 			action = COMPRESS;
 			seq++;
+		}
+		else if (lstrcmpiA(argv[seq], "--networktest") == 0) {
+			action = NETWORKTEST;
+			option = argv[seq + 1];
+			input = argv[seq + 2];
+			infn = argv[seq + 3];
+			inSize = lstrlenA(input);
+			seq += 4;
 		}
 		else if (lstrcmpiA(argv[seq], "-if") == 0) {
 			infn = argv[seq + 1];
@@ -185,8 +183,11 @@ int main(int argc,char ** argv)
 	else if (action == NETWORKPROXY) {
 		//ret = NetworkProxy();
 	}
+	else if (action == NETWORKTEST) {
+		ret = TestNetwork(input, infn, option);
+	}
 	else {
-
+		
 	}
 
 	if (outfn) {
