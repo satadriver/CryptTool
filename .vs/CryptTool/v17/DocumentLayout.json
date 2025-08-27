@@ -3,20 +3,32 @@
   "WorkspaceRootPath": "D:\\Project\\CryptTool\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\network.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:network.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\grepFunc.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:grepFunc.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\CryptTool.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:CryptTool.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\network.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:network.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\strSearch.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:strSearch.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\split2File.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:split2File.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\split2File.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:split2File.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\network.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:network.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\network.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:network.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\CryptTool.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -25,10 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\Proxy.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:Proxy.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
-      "RelativeMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|solutionrelative:utils.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{8F4D313B-49F9-4786-A139-DD5550BCE086}|CryptTool.vcxproj|D:\\Project\\CryptTool\\compress.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -42,24 +50,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "CryptTool.h",
-              "DocumentMoniker": "D:\\Project\\CryptTool\\CryptTool.h",
-              "RelativeDocumentMoniker": "CryptTool.h",
-              "ToolTip": "D:\\Project\\CryptTool\\CryptTool.h",
-              "RelativeToolTip": "CryptTool.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAATAAAAAAAAAA==",
+              "Title": "split2File.h",
+              "DocumentMoniker": "D:\\Project\\CryptTool\\split2File.h",
+              "RelativeDocumentMoniker": "split2File.h",
+              "ToolTip": "D:\\Project\\CryptTool\\split2File.h",
+              "RelativeToolTip": "split2File.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-08-12T09:23:46.147Z",
+              "WhenOpened": "2025-08-27T01:56:00.962Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
+              "Title": "split2File.cpp",
+              "DocumentMoniker": "D:\\Project\\CryptTool\\split2File.cpp",
+              "RelativeDocumentMoniker": "split2File.cpp",
+              "ToolTip": "D:\\Project\\CryptTool\\split2File.cpp",
+              "RelativeToolTip": "split2File.cpp",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2025-08-27T01:50:51.184Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "Proxy.cpp",
               "DocumentMoniker": "D:\\Project\\CryptTool\\Proxy.cpp",
               "RelativeDocumentMoniker": "Proxy.cpp",
@@ -67,12 +88,11 @@
               "RelativeToolTip": "Proxy.cpp",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-08-12T09:22:53.856Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-12T09:22:53.856Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
               "Title": "utils.cpp",
               "DocumentMoniker": "D:\\Project\\CryptTool\\utils.cpp",
               "RelativeDocumentMoniker": "utils.cpp",
@@ -85,7 +105,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 6,
               "Title": "network.cpp",
               "DocumentMoniker": "D:\\Project\\CryptTool\\network.cpp",
               "RelativeDocumentMoniker": "network.cpp",
@@ -93,12 +113,11 @@
               "RelativeToolTip": "network.cpp",
               "ViewState": "AgIAAK0AAAAAAAAAAAAAAL4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2025-08-12T08:57:26.526Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-12T08:57:26.526Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "network.h",
               "DocumentMoniker": "D:\\Project\\CryptTool\\network.h",
               "RelativeDocumentMoniker": "network.h",
@@ -111,13 +130,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "strSearch.cpp",
-              "DocumentMoniker": "D:\\Project\\CryptTool\\strSearch.cpp",
-              "RelativeDocumentMoniker": "strSearch.cpp",
-              "ToolTip": "D:\\Project\\CryptTool\\strSearch.cpp",
-              "RelativeToolTip": "strSearch.cpp",
-              "ViewState": "AgIAAKwAAAAAAAAAAAAMwLoAAAAyAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "grepFunc.cpp",
+              "DocumentMoniker": "D:\\Project\\CryptTool\\grepFunc.cpp",
+              "RelativeDocumentMoniker": "grepFunc.cpp",
+              "ToolTip": "D:\\Project\\CryptTool\\grepFunc.cpp",
+              "RelativeToolTip": "grepFunc.cpp",
+              "ViewState": "AgIAALAAAAAAAAAAAAAEwLwAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-08-06T09:29:31.561Z",
               "EditorCaption": ""
@@ -130,7 +149,7 @@
               "RelativeDocumentMoniker": "CryptTool.cpp",
               "ToolTip": "D:\\Project\\CryptTool\\CryptTool.cpp",
               "RelativeToolTip": "CryptTool.cpp",
-              "ViewState": "AgIAAEcAAAAAAAAAAAAAAFkAAAAoAAAAAAAAAA==",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAkwA8AAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2025-08-04T06:53:27.28Z",
               "EditorCaption": ""
@@ -138,6 +157,18 @@
             {
               "$type": "Document",
               "DocumentIndex": 7,
+              "Title": "CryptTool.h",
+              "DocumentMoniker": "D:\\Project\\CryptTool\\CryptTool.h",
+              "RelativeDocumentMoniker": "CryptTool.h",
+              "ToolTip": "D:\\Project\\CryptTool\\CryptTool.h",
+              "RelativeToolTip": "CryptTool.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-08-12T09:23:46.147Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "compress.cpp",
               "DocumentMoniker": "D:\\Project\\CryptTool\\compress.cpp",
               "RelativeDocumentMoniker": "compress.cpp",

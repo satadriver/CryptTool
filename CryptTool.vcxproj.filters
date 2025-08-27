@@ -36,10 +36,10 @@
     <ClCompile Include="compress.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="binwalkELF.cpp">
+    <ClCompile Include="split2File.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="strSearch.cpp">
+    <ClCompile Include="grepFunc.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Proxy.cpp">
@@ -71,10 +71,10 @@
     <ClInclude Include="compress.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="binwalkELF.h">
+    <ClInclude Include="split2File.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="strSearch.h">
+    <ClInclude Include="grepFunc.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Proxy.h">

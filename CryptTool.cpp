@@ -12,8 +12,8 @@
 #include "md5.h"
 #include "sha1.h"
 #include "compress.h"
-#include "binwalkELF.h"
-#include "strsearch.h"
+#include "split2file.h"
+#include "grepFunc.h"
 #include "FileUtils.h"
 #include "Proxy.h"
 #include "CryptTool.h"
@@ -175,7 +175,7 @@ int main(int argc,char ** argv)
 	else if (action == SPLIT_BINWALK_ELF) {
 		char filepath[1024];
 		ret = GetNameFromPath(infn, filepath);
-		ret = SplitBinwalkELF(input, inSize, filepath);
+		ret = Split2File(input, inSize, filepath, (unsigned char*)"\x7f\x45\x4c\x46",4);
 	}
 	else if (action == STRINGSEARCH) {
 		ret = SearchString(option,input,infn );
