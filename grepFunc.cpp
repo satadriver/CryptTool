@@ -261,8 +261,7 @@ int test(int argc, char** argv)
 		printf("input the content you want to search:");
 		ret = scanf("%s", inputstr);
 
-
-		MultiByteToWideChar(CP_ACP, 0, inputstr, -1, wszcontent, sizeof(wszcontent));
+		MultiByteToWideChar(CP_ACP, 0, inputstr, -1, wszcontent, sizeof(wszcontent)/sizeof(wchar_t));
 
 		ret = SearchInDir(inputpath, 1, inputstr, lstrlenA(inputstr)+1, wszcontent);
 	}
