@@ -184,34 +184,54 @@ int SearchInDir(const char* PreStrPath, int iLayer, const char* pDstContent,int 
 }
 
 
-int SearchString(char* option,char* str,char * path) {
+int SearchString(char* option,char* data,char * filpath) {
 	int ret = 0;
 	int srclen = 0;
 	char szContent[0x1000] = { 0 };
+
+	string str = data;
+	string path = filpath;
+
+	char* lpstr = (char*)str.c_str();
+	char c = lpstr[0];
+	if (str.c_str()[0] == '\"') {
+		str = str.substr(1);
+	}
+	if (str.c_str()[str.length()-1] == '\"') {
+		str = str.substr(0,str.length() -1);
+	}
+
+	if (path.c_str()[0] == '\"') {
+		path = path.substr(1);
+	}
+	if (path.c_str()[path.length() - 1] == '\"') {
+		path = path.substr(0, path.length() - 1);
+	}
+
 	wchar_t wszContent[0x1000] = { 0 };
 	if (option[0] == 'b') {
-		srclen = str2hex(str, szContent);
+		srclen = str2hex((char*)str.c_str(), szContent);
 		szContent[srclen] = 0;
 		memcpy(wszContent, szContent, srclen);
 		wszContent[srclen] = 0;
 	}
 	else if (option[0] == 's') {
-		srclen = lstrlenA(str);
-		upcase(str, srclen, szContent);
+		srclen = lstrlenA((char*)str.c_str());
+		upcase((char*)str.c_str(), srclen, szContent);
 		szContent[srclen] = 0;
 
-		int wlen = MultiByteToWideChar(CP_ACP, 0, str, -1, wszContent, sizeof(wszContent) / sizeof(wchar_t));
+		int wlen = MultiByteToWideChar(CP_ACP, 0, str.c_str(), -1, wszContent, sizeof(wszContent) / sizeof(wchar_t));
 		wszContent[wlen] = 0;
 
 		srclen++;
 	}
 
-	ret = GetFileAttributesA(path);
+	ret = GetFileAttributesA(path.c_str());
 	if (ret & FILE_ATTRIBUTE_DIRECTORY) {
-		ret = SearchInDir(path, 1, szContent,srclen, wszContent);
+		ret = SearchInDir(path.c_str(), 1, szContent,srclen, wszContent);
 	}
 	else if (ret & FILE_ATTRIBUTE_ARCHIVE) {
-		ret = SearchInFile(path, szContent,srclen , wszContent);
+		ret = SearchInFile(path.c_str(), szContent,srclen , wszContent);
 	}
 	return ret;
 }

@@ -5,7 +5,7 @@
 #include <Windows.h>
 
 
-int FReader(const CHAR* filename, CHAR** lpbuf, __int64* lpsize) {
+int FReader(const CHAR* filename, CHAR** lpbuf, unsigned __int64* lpsize) {
 	int result = 0;
 
 	HANDLE hf = CreateFileA(filename, GENERIC_READ, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, 0);

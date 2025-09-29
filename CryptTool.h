@@ -15,4 +15,4 @@
 #define NETWORKPROXY	10
 #define NETWORKTEST		11
 
-#define SPLIT_BINWALK_ELF		0xffffffff
+#define SPLIT_FILE_WITH_TAG		0xffffffff

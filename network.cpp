@@ -16,12 +16,6 @@ using namespace std;
 
 
 
-
-
-
-
-
-
 int __stdcall TestUdpClient(string ip, int port) {
 
 	int ret = 0;
@@ -118,7 +112,10 @@ int __stdcall TestTcpServer(int port) {
 	sa.sin_port = ntohs(port);
 
 	ret = bind(s, (sockaddr*)&sa, sizeof(sockaddr_in));
-
+	if (ret) {
+		printf("%s %d error\r\n", __FUNCTION__, __LINE__);
+		return -1;
+	}
 	ret = listen(s, 16);
 
 	unsigned int recvsize = 0x1000;
@@ -136,11 +133,11 @@ int __stdcall TestTcpServer(int port) {
 			}
 			else {
 				recvbuf[recvlen] = 0;
-				const char* html = "hello how are you?\r\n";
-				int sendsize = send(sc, html, lstrlenA(html), 0);
+				const char* msg = "hello how are you?\r\n";
+				int sendsize = send(sc, msg, lstrlenA(msg), 0);
 				closesocket(sc);
-				printf("recv msg:\r\n");
-				printf(recvbuf);
+				//printf("recv msg:\r\n");
+				//printf(recvbuf);
 			}
 		}
 		else {
@@ -166,8 +163,12 @@ int __stdcall TestUdpServer(int port) {
 	sa.sin_port = ntohs(port);
 
 	ret = bind(s, (sockaddr*)&sa, sizeof(sockaddr_in));
+	if (ret) {
+		printf("%s %d error\r\n", __FUNCTION__, __LINE__);
+		return -1;
+	}
 
-	unsigned int recvsize = 0x1000;
+	unsigned int recvsize = 0x10000;
 	char* recvbuf = new char[recvsize];
 
 	while (1) {
@@ -180,15 +181,15 @@ int __stdcall TestUdpServer(int port) {
 			const char* html = "hello how are you?\r\n";
 			int sendsize = sendto(s, html, lstrlenA(html), 0, (sockaddr*)&client, sizeof(sockaddr_in));
 			closesocket(s);
-			printf("recv msg:\r\n");
-			printf(recvbuf);
+			//printf("recv msg:\r\n");
+			//printf(recvbuf);
 		}
 	}
 	return 0;
 }
 
 
-int TestNetwork( char* strip,char * strport,char * protocol) {
+int TestNetwork( char * mode,char* strip,char * strport,char * protocol) {
 
 	int ret = 0;
 	WSADATA wsa = { 0 };
@@ -205,11 +206,24 @@ int TestNetwork( char* strip,char * strport,char * protocol) {
 	int opt = atoi(protocol);
 
 	if (opt == 6) {
-		TestTcpClient(strip, port);
+		if (strcmp(mode, "-s") == 0) {
+			TestTcpServer( port);
+		}
+		else if (strcmp(mode, "-c") == 0) {
+			TestTcpClient(strip, port);
+		}		
 	}
 	else if (opt == 17) {
-		TestUdpClient(strip, port);
+		if (strcmp(mode, "-s") == 0) {
+			TestUdpServer( port);
+		}
+		else  if (strcmp(mode, "-c") == 0) {
+			TestUdpClient(strip, port);
+		}
+		
 	}
+
+	ret = WSACleanup();
 
 	return 0;
 }

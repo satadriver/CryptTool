@@ -12,4 +12,4 @@ int __stdcall TestUdpServer(int port);
 
 int __stdcall TestTcpServer(int port);
 
-int TestNetwork(char* strip, char* strport, char* protocol);
+int TestNetwork(char * mode,char* strip, char* strport, char* protocol);

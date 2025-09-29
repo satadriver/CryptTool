@@ -39,7 +39,7 @@ int main(int argc,char ** argv)
 	char* infn = 0;
 
 	char * input =  0;
-	__int64 inSize = 0;
+	unsigned __int64 inSize = 0;
 
 	char* outfn = 0;
 
@@ -78,8 +78,8 @@ int main(int argc,char ** argv)
 			option = argv[seq + 1];
 			input = argv[seq + 2];
 			infn = argv[seq + 3];
-			inSize = lstrlenA(input);
-			seq += 4;
+			inSize = (unsigned __int64)argv[seq + 4];
+			seq += 5;
 		}
 		else if (lstrcmpiA(argv[seq], "-if") == 0) {
 			infn = argv[seq + 1];
@@ -104,8 +104,8 @@ int main(int argc,char ** argv)
 			outfn = argv[seq + 1];
 			seq += 2;
 		}
-		else if (lstrcmpiA(argv[seq], "--split_binwalk_elf") == 0) {
-			action = SPLIT_BINWALK_ELF;
+		else if (lstrcmpiA(argv[seq], "--splitfile") == 0) {
+			action = SPLIT_FILE_WITH_TAG;
 			seq++;
 		}
 		else if (lstrcmpiA(argv[seq], "--search") == 0) {
@@ -172,7 +172,7 @@ int main(int argc,char ** argv)
 		ret = GetNameFromPath(infn, filepath);
 		int num = dzFiles((unsigned char*)input, inSize, (unsigned char*)data, dataSize, filepath);
 	}
-	else if (action == SPLIT_BINWALK_ELF) {
+	else if (action == SPLIT_FILE_WITH_TAG) {
 		char filepath[1024];
 		ret = GetNameFromPath(infn, filepath);
 		ret = Split2File(input, inSize, filepath, (unsigned char*)"\x7f\x45\x4c\x46",4);
@@ -184,7 +184,7 @@ int main(int argc,char ** argv)
 		//ret = NetworkProxy();
 	}
 	else if (action == NETWORKTEST) {
-		ret = TestNetwork(input, infn, option);
+		ret = TestNetwork(option,input, infn,(char*) inSize);
 	}
 	else {
 		

@@ -4,4 +4,4 @@
 
 int FWriter(const CHAR* filename, const CHAR* lpbuf, int lpsize, int append);
 
-int FReader(const CHAR* filename, CHAR** lpbuf, __int64* lpsize);
+int FReader(const CHAR* filename, CHAR** lpbuf, unsigned __int64* lpsize);
