@@ -2,7 +2,7 @@
 
 
 
-
+#include <stdio.h>
 
 #include <Windows.h>
 #include "utils.h"
@@ -309,4 +309,246 @@ int QueryRegistryValue(HKEY hMainKey, char* szSubKey,unsigned long type, char* s
 	{
 		return FALSE;
 	}
+}
+
+int IsPeFile(char * data,int size) {
+	if (!data || size < sizeof(IMAGE_DOS_HEADER)) {
+		return 0;
+	}
+
+	// 1. 定位 DOS 头和 NT 头
+	PIMAGE_DOS_HEADER pDosHeader = (PIMAGE_DOS_HEADER)data;
+	if (pDosHeader->e_magic != IMAGE_DOS_SIGNATURE) {
+		return 0; // 不是有效的 PE 文件
+	}
+
+	PIMAGE_NT_HEADERS pNtHeader = (PIMAGE_NT_HEADERS)(data + pDosHeader->e_lfanew);
+	if (pNtHeader->Signature != IMAGE_NT_SIGNATURE) {
+		return 0;
+	}
+	return 1;
+}
+
+DWORD GetImageSize(char* pFileBuff)
+{
+	PIMAGE_DOS_HEADER pDos = (PIMAGE_DOS_HEADER)pFileBuff;
+	PIMAGE_NT_HEADERS pNt = (PIMAGE_NT_HEADERS)(pFileBuff + pDos->e_lfanew);
+
+	int is64bit = 0;
+	int magic = pNt->OptionalHeader.Magic;
+	if (magic == IMAGE_NT_OPTIONAL_HDR64_MAGIC) {
+		is64bit = 1;
+	}
+
+	if(is64bit) {
+		PIMAGE_NT_HEADERS64 pNt64 = (PIMAGE_NT_HEADERS64)pNt;
+		return pNt64->OptionalHeader.SizeOfImage;
+	}
+
+	DWORD dwSizeOfImage = pNt->OptionalHeader.SizeOfImage;
+
+	return dwSizeOfImage;
+}
+
+
+DWORD GetPeEntry(char* pe) {
+	PIMAGE_DOS_HEADER pDos = (PIMAGE_DOS_HEADER)pe;
+	PIMAGE_NT_HEADERS pNt = (PIMAGE_NT_HEADERS)(pe + pDos->e_lfanew);
+	DWORD entry = pNt->OptionalHeader.AddressOfEntryPoint;
+
+	return entry;
+}
+
+
+DWORD GetPeType(DWORD chBaseAddress) {
+	PIMAGE_DOS_HEADER dos = (PIMAGE_DOS_HEADER)chBaseAddress;
+	PIMAGE_NT_HEADERS nt = (PIMAGE_NT_HEADERS)(chBaseAddress + dos->e_lfanew);
+
+	return nt->FileHeader.Characteristics;
+}
+
+DWORD GetImageBase(char* pFileBuff)
+{
+	PIMAGE_DOS_HEADER pDos = (PIMAGE_DOS_HEADER)pFileBuff;
+	PIMAGE_NT_HEADERS pNt = (PIMAGE_NT_HEADERS)(pFileBuff + pDos->e_lfanew);
+	DWORD imagebase = pNt->OptionalHeader.ImageBase;
+
+	return imagebase;
+}
+
+
+
+int MapPeFile(char* pFileBuff, char* chBaseAddress,const char *fn)
+{
+	PIMAGE_DOS_HEADER pDos = (PIMAGE_DOS_HEADER)pFileBuff;
+	PIMAGE_NT_HEADERS pNt = (PIMAGE_NT_HEADERS)(pFileBuff + pDos->e_lfanew);
+
+	int is64bit = 0;
+	int magic = pNt->OptionalHeader.Magic;
+	if(magic == IMAGE_NT_OPTIONAL_HDR64_MAGIC){
+		is64bit = 1;
+	}
+
+	DWORD dwSizeOfHeaders = pNt->OptionalHeader.SizeOfHeaders;
+	memcpy(chBaseAddress, pFileBuff, dwSizeOfHeaders);
+
+	//PIMAGE_SECTION_HEADER pSection = IMAGE_FIRST_SECTION(pNt);
+	PIMAGE_SECTION_HEADER pSection = 0;
+	if (is64bit) {
+		pSection = (PIMAGE_SECTION_HEADER)((char*)pNt + sizeof(IMAGE_NT_HEADERS64));
+	}
+	else {
+		pSection = (PIMAGE_SECTION_HEADER)((char*)pNt + sizeof(IMAGE_NT_HEADERS32));
+	}
+
+	DWORD totalSize = 0;
+
+	DWORD vs = GetImageSize(pFileBuff);
+
+	int nNumerOfSections = pNt->FileHeader.NumberOfSections;
+	for (int i = 0; i < nNumerOfSections; i++)
+	{
+		if ((0 == pSection[i].VirtualAddress) || (0 == pSection[i].SizeOfRawData))
+		{
+			continue;
+		}
+
+		totalSize += pSection[i].SizeOfRawData;
+		if (pSection[i].SizeOfRawData > vs) {
+			printf("file:%s Image size:%x SizeOfRawData:%x section:%s error\r\n",fn, vs, pSection[i].SizeOfRawData,
+				pSection[i].Name);
+			return 0;
+		}
+
+		char* chDestMem = (char*)((DWORD)chBaseAddress + pSection[i].VirtualAddress);
+		char* chSrcMem = (char*)((DWORD)pFileBuff + pSection[i].PointerToRawData);
+		DWORD dwSizeOfRawData = pSection[i].SizeOfRawData;
+		memcpy(chDestMem, chSrcMem, dwSizeOfRawData);
+	}
+
+	return TRUE;
+}
+
+
+
+
+
+
+
+
+int ResourceParser(DWORD module, DWORD resbase, PIMAGE_RESOURCE_DIRECTORY resdir, int level, DWORD id, DWORD type, DWORD* offset, DWORD* size)
+{
+	int ret = 0;
+	int find = 0;
+	char buf[1024];
+
+	if (resdir->NumberOfIdEntries == 0 && resdir->NumberOfNamedEntries == 0)
+	{
+		return 0;
+	}
+
+	int cnt = resdir->NumberOfIdEntries + resdir->NumberOfNamedEntries;
+	PIMAGE_RESOURCE_DIRECTORY_ENTRY res_dir_entry =
+		(PIMAGE_RESOURCE_DIRECTORY_ENTRY)((DWORD)resdir + sizeof(IMAGE_RESOURCE_DIRECTORY));
+	for (int i = 0; i < cnt; i++)
+	{
+
+		if (res_dir_entry->DataIsDirectory)
+		{
+			if (res_dir_entry->NameIsString)
+			{
+				PIMAGE_RESOURCE_DIR_STRING_U str =
+					(PIMAGE_RESOURCE_DIR_STRING_U)(resbase + res_dir_entry->NameOffset);
+				ret = WideCharToMultiByte(CP_ACP,0,(WCHAR*)str->NameString, str->Length, buf,sizeof(buf),0,0);
+				//__printf("get resource level:%u name:%s\r\n", (char*)level, buf);
+			}
+			else {
+				//__printf("get resource level:%u type:%u:\r\n", (char*)level, name);
+			}
+
+			//name高位是0的话，第一层是类型，如上图rt定义
+			if (level == 1)
+			{
+				if (type != res_dir_entry->Name)
+				{
+					res_dir_entry++;
+					continue;
+				}
+			}
+
+			//第二层是id号码，第三层是语言标识
+			if (level == 2)
+			{
+				if (res_dir_entry->Name != id)
+				{
+					res_dir_entry++;
+					continue;
+				}
+			}
+
+			int nextlevel = level + 1;
+
+			PIMAGE_RESOURCE_DIRECTORY nextdir =
+				(PIMAGE_RESOURCE_DIRECTORY)(resbase + res_dir_entry->OffsetToDirectory);
+			ret = ResourceParser(module, resbase, nextdir, nextlevel, id, type, offset, size);
+		}
+		else {
+			if (res_dir_entry->NameIsString)
+			{
+				PIMAGE_RESOURCE_DIR_STRING_U str =
+					(PIMAGE_RESOURCE_DIR_STRING_U)(resbase + res_dir_entry->NameOffset);
+
+				ret = WideCharToMultiByte(CP_ACP, 0, (WCHAR*)str->NameString, str->Length, buf, sizeof(buf), 0, 0);
+				//__printf("get item name:%s,size:%u,address:%x\r\n", buf,size,offset);
+			}
+			else {
+				//__printf("get item type:%u,size:%u,address:%x\r\n",(char*) name,size,offset);
+			}
+
+			PIMAGE_RESOURCE_DATA_ENTRY res_data_entry =
+				(PIMAGE_RESOURCE_DATA_ENTRY)(resbase + res_dir_entry->OffsetToData);
+			char* resoffset = (char*)res_data_entry->OffsetToData + module;
+			DWORD ressize = res_data_entry->Size;
+
+			*offset = res_data_entry->OffsetToData + module;
+			*size = res_data_entry->Size;
+		}
+		res_dir_entry++;
+	}
+
+	return 0;
+}
+
+
+
+int GetResFromID(DWORD module, int id, DWORD type, DWORD* offset, DWORD* size)
+{
+	PIMAGE_DOS_HEADER dos = (PIMAGE_DOS_HEADER)module;
+	PIMAGE_NT_HEADERS nt = (PIMAGE_NT_HEADERS)(module + dos->e_lfanew);
+	PIMAGE_FILE_HEADER fh = &nt->FileHeader;
+
+	PIMAGE_RESOURCE_DIRECTORY res = (PIMAGE_RESOURCE_DIRECTORY)(nt->OptionalHeader.DataDirectory[2].VirtualAddress + module);
+
+	*offset = 0;
+	*size = 0;
+	ResourceParser(module, (DWORD)res, res, 1, id, type, offset, size);
+
+	return 0;
+}
+
+
+int GetResFromName(DWORD module, const char* name, DWORD type, DWORD* offset, DWORD* size)
+{
+	PIMAGE_DOS_HEADER dos = (PIMAGE_DOS_HEADER)module;
+	PIMAGE_NT_HEADERS nt = (PIMAGE_NT_HEADERS)(module + dos->e_lfanew);
+	PIMAGE_FILE_HEADER fh = &nt->FileHeader;
+
+	PIMAGE_RESOURCE_DIRECTORY res =
+		(PIMAGE_RESOURCE_DIRECTORY)(nt->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_RESOURCE].VirtualAddress + module);
+
+	*offset = 0;
+	*size = 0;
+	ResourceParser(module, (DWORD)res, res, 1, (DWORD)name, type, offset, size);
+
+	return 0;
 }

@@ -25,3 +25,40 @@ int IsCpu64Bit();
 
 int QueryRegistryValue(HKEY hMainKey, char* szSubKey, unsigned long type, char* szKeyName, unsigned char* szKeyValue);
 
+int MapPeFile(char* pFileBuff, char* chBaseAddress,const char * fn);
+
+DWORD GetImageSize(char* pFileBuff);
+
+int IsPeFile(char* data, int size);
+
+#ifdef DUMMYUNIONNAME2
+#undef DUMMYUNIONNAME2
+#endif
+#ifdef DUMMYSTRUCTNAME2
+#undef DUMMYSTRUCTNAME2
+#endif
+
+#pragma pack(1)
+
+/*
+typedef struct _IMAGE_RESOURCE_DIRECTORY_ENTRY {
+	union {
+		struct {
+			DWORD NameOffset : 31;
+			DWORD NameIsString : 1;
+		} DUMMYSTRUCTNAME;
+		DWORD   Name;
+		WORD    Id;
+	} DUMMYUNIONNAME;
+
+	union {
+		DWORD   OffsetToData;
+		struct {
+			DWORD   OffsetToDirectory : 31;
+			DWORD   DataIsDirectory : 1;
+		} DUMMYSTRUCTNAME2;
+	} DUMMYUNIONNAME2;
+} IMAGE_RESOURCE_DIRECTORY_ENTRY, * PIMAGE_RESOURCE_DIRECTORY_ENTRY;
+*/
+
+#pragma pack()

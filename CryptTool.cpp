@@ -1,6 +1,5 @@
 ﻿
 
-// 正确顺序
 #define _WIN32_WINNT 0x0A00
 #include <windows.h>
 
@@ -23,6 +22,7 @@
 using namespace std;
 
 
+//--search function "root_user" "D:\work\ftos\_FTOS-SK-9.14.1.7.bin.extracted\1102787"
 
 int main(int argc,char ** argv)
 {
