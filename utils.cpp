@@ -102,7 +102,7 @@ int str2hex(char * str,char * dst) {
 			i += 2;
 		}
 		else {
-
+			break;
 		}
 
 		unsigned char low = str[i + 1];

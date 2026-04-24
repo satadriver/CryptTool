@@ -23,28 +23,27 @@ using namespace std;
 
 
 //--search function "root_user" "D:\work\ftos\_FTOS-SK-9.14.1.7.bin.extracted\1102787"
+//--search b "\x00\x01\x02\x03\x04\x05" "C:\Users\liujinguang01\Desktop\intouch"
 
 int main(int argc,char ** argv)
 {
 	int ret = 0;
 
-	//Compress::testcompress();
-
 	if (argc <= 1) {
+		printf("example:%s [command] [in] [out]\r\n", argv[0]);
 		return FALSE;
 	}
 
 	int action = 0;
 
 	char* infn = 0;
-
-	char * input =  0;
-	unsigned __int64 inSize = 0;
-
 	char* outfn = 0;
 
-	char* data = 0;
-	__int64 dataSize = 0;
+	char* output = 0;
+	char * input =  0;
+
+	unsigned __int64 inSize = 0;
+	__int64 outSize = 0;
 
 	char* option = 0;
 
@@ -65,12 +64,20 @@ int main(int argc,char ** argv)
 			action = MD5_ENCODE;
 			seq++;
 		}
-		else if (lstrcmpiA(argv[seq], "--uncompress") == 0) {
-			action = UNCOMPRESS;
+		else if (lstrcmpiA(argv[seq], "--zdecompress") == 0) {
+			action = ZDECOMPRESS;
 			seq++;			
 		}
-		else if (lstrcmpiA(argv[seq], "--compress") == 0) {
-			action = COMPRESS;
+		else if (lstrcmpiA(argv[seq], "--zcompress") == 0) {
+			action = ZCOMPRESS;
+			seq++;
+		}
+		else if (lstrcmpiA(argv[seq], "--gzdecompress") == 0) {
+			action = GZDECOMPRESS;
+			seq++;
+		}
+		else if (lstrcmpiA(argv[seq], "--gzcompress") == 0) {
+			action = GZCOMPRESS;
 			seq++;
 		}
 		else if (lstrcmpiA(argv[seq], "--networktest") == 0) {
@@ -104,6 +111,11 @@ int main(int argc,char ** argv)
 			outfn = argv[seq + 1];
 			seq += 2;
 		}
+		else if (lstrcmpiA(argv[seq], "-os") == 0) {
+
+			outfn = argv[seq + 1];
+			seq += 1;
+		}
 		else if (lstrcmpiA(argv[seq], "--splitfile") == 0) {
 			action = SPLIT_FILE_WITH_TAG;
 			seq++;
@@ -131,46 +143,69 @@ int main(int argc,char ** argv)
 
 	if (action == BASE64_ENCODE) {
 		string outstr = (char*)base64_encode(input, inSize).c_str();
-		data = (char*) outstr.c_str();
-		dataSize = outstr.length();
+		output = (char*) outstr.c_str();
+		outSize = outstr.length();
 	}
 	else if (action == BASE64_DECODE) {
 		string instr = input;
 		string outstr = base64_decode(instr);
-		data = (char*)outstr.c_str();
-		dataSize = outstr.length();
+		output = (char*)outstr.c_str();
+		outSize = outstr.length();
 	}
 	else if (action == SHA1_ENCODE) {
-		if (data == 0) {
-			data = new char[1024];
+		if (output == 0) {
+			output = new char[1024];
 		}
-		ret = sha1((unsigned char*)input, inSize, (unsigned char*)data);
-		dataSize = 20;
+		ret = sha1((unsigned char*)input, inSize, (unsigned char*)output);
+		outSize = 20;
 	}
 	else if (action == MD5_ENCODE) {
-		if (data == 0) {
-			data = new char[1024];
+		if (output == 0) {
+			output = new char[1024];
 		}
-		ret = GetMD5((unsigned char*)input, inSize, (unsigned char*)data, 0);
-		dataSize = 16;
+		ret = GetMD5((unsigned char*)input, inSize, (unsigned char*)output, 0);
+		outSize = 16;
 	}
-	else if (action == COMPRESS) {
-		if (data == 0) {
-			data = new char[inSize+0x1000];
+	else if (action == ZCOMPRESS) {
+		if (output == 0) {
+			outSize = inSize + 0x1000;
+			output = new char[outSize];
 		}
-		ret = Compress::CompressData((unsigned char*)input, inSize, (unsigned char*)data,(unsigned long*) &dataSize);
+		
+		ret = Compress::zcompress((unsigned char*)input, inSize, (unsigned char*)output,(unsigned long*) &outSize);
 	}
-	else if (action == UNCOMPRESS) {
-		if (data == 0) {
-			dataSize = inSize * 16 + 0x1000;
-			data = new char[dataSize];
+	else if (action == ZDECOMPRESS) {
+		if (output == 0) {
+			outSize = inSize*16 + 0x1000;
+			output = new char[outSize];
+		}
+		ret = Compress::zdecompress((unsigned char*)input, inSize, (unsigned char*)output, (unsigned long*)&outSize);
+	}
+	else if (action == ZDECOMPRESSF) {
+		if (output == 0) {
+			outSize = inSize * 16 + 0x1000;
+			output = new char[outSize];
 		}
 		//ret = Compress::UncompressData((unsigned char*)input, inSize, (unsigned char*)data, (unsigned long*)&dataSize);
 		//uncompress_deflate(infn, outfn);
 
 		char filepath[1024];
 		ret = GetNameFromPath(infn, filepath);
-		int num = dzFiles((unsigned char*)input, inSize, (unsigned char*)data, dataSize, filepath);
+		int num = dzFiles((unsigned char*)input, inSize, (unsigned char*)output, outSize, filepath);
+	}
+	else if (action == GZCOMPRESS) {
+		if (output == 0) {
+			outSize = inSize + 0x1000;
+			output = new char[outSize];
+		}
+		ret = Compress::gzcompress((unsigned char*)input, inSize, (unsigned char*)output, (unsigned long*)&outSize);
+	}
+	else if (action == GZDECOMPRESS) {
+		if (output == 0) {
+			outSize = inSize*16 + 0x1000;
+			output = new char[inSize + 0x1000];
+		}
+		ret = Compress::gzdecompress((unsigned char*)input, inSize, (unsigned char*)output, (unsigned long*)&outSize);
 	}
 	else if (action == SPLIT_FILE_WITH_TAG) {
 		char filepath[1024];
@@ -191,7 +226,7 @@ int main(int argc,char ** argv)
 	}
 
 	if (outfn) {
-		ret = FWriter(outfn, data, dataSize, 0);
+		ret = FWriter(outfn, output, outSize, 0);
 	}
 	return 0;
 }

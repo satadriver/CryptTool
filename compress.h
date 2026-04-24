@@ -7,7 +7,7 @@
 
 #include <string>
 
-#define CHUNK_SIZE 16384
+#define CHUNK_SIZE 0x1000
 
 
 using namespace std;
@@ -25,19 +25,17 @@ public:
 
 	static int UncompressData(unsigned char* src, unsigned long srcsize, unsigned char* dst, unsigned long* dstsize);
 
-	int gzcompress(Bytef* data, uLong ndata, Bytef* zdata, uLong* nzdata);
-
-	int httpgzdecompress(Byte* zdata, uLong nzdata, Byte* data, uLong* ndata);
+	static int gzcompress(Bytef* data, uLong ndata, Bytef* zdata, uLong* nzdata);
 
 	int gzfile(string srcfn, string dstfn, int withname, string ingzfn);
 
 	int gzfiledata(Byte* data, uLong ndata, Byte* gzdata, uLong* ngzdata);
 
-	int zcompress(Bytef* data, uLong ndata, Bytef* zdata, uLong* nzdata);
+	static int zcompress(Bytef* data, uLong ndata, Bytef* zdata, uLong* nzdata);
 
-	int zdecompress(Byte* zdata, uLong nzdata, Byte* data, uLong* ndata);
+	static int zdecompress(Byte* zdata, uLong nzdata, Byte* data, uLong* ndata);
 
-	int gzdecompress(Byte* zdata, uLong nzdata, Byte* data, uLong* ndata);
+	static int gzdecompress(Byte* zdata, uLong nzdata, Byte* data, uLong* ndata);
 
 	static void testcompress();
 };
