@@ -239,7 +239,7 @@ int Compress::zcompress(Bytef* data, uLong ndata, Bytef* zdata, uLong* nzdata)
 		c_stream.zalloc = (alloc_func)0;
 		c_stream.zfree = (free_func)0;
 		c_stream.opaque = (voidpf)0;
-		if (deflateInit(&c_stream, Z_DEFAULT_COMPRESSION) != Z_OK)
+		if (deflateInit(&c_stream, Z_BEST_SPEED) != Z_OK)
 			return -1;
 		c_stream.next_in = data;
 		c_stream.avail_in = ndata;
