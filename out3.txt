@@ -1,0 +1,1 @@
+{"has_data":"1","version":"9.9.9.9","url":"http://10.43.41.5/base.exe","download_type":"1","file_md5":"92a31ed9b439e83f3b6f410547ae14b2","file_size":"651776","file_type":"0","file_flag":"1","limit_speed":"0"}

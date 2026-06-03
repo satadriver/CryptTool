@@ -10,6 +10,11 @@
 #define SHA1_ENCODE		3
 #define MD5_ENCODE		4
 
+#define BASE24_CODE		5
+
+#define URL_ENCODE		6
+#define URL_DECODE		7
+
 #define ZCOMPRESS		16
 #define ZDECOMPRESS		17
 #define GZCOMPRESS		18

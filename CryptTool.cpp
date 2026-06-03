@@ -17,7 +17,7 @@
 #include "Proxy.h"
 #include "CryptTool.h"
 #include "network.h"
-
+#include "url.h"
 
 using namespace std;
 
@@ -48,39 +48,51 @@ int main(int argc,char ** argv)
 	char* option = 0;
 
 	for (int seq = 1; seq < argc; ) {
-		if (lstrcmpiA(argv[seq], "--encode") == 0) {
+		if (lstrcmpiA(argv[seq], "-enc") == 0) {
 			action = BASE64_ENCODE;
 			seq++;
 		}
-		else if (lstrcmpiA(argv[seq], "--decode") == 0) {
+		else if (lstrcmpiA(argv[seq], "-dec") == 0) {
 			action = BASE64_DECODE;
 			seq++;
 		}
-		else if (lstrcmpiA(argv[seq], "--sha1") == 0) {
+		else if (lstrcmpiA(argv[seq], "-b24") == 0) {
+			action = BASE24_CODE;
+			seq++;
+		}
+		else if (lstrcmpiA(argv[seq], "-urldec") == 0) {
+			action = URL_DECODE;
+			seq++;
+		}
+		else if (lstrcmpiA(argv[seq], "-urlenc") == 0) {
+			action = URL_ENCODE;
+			seq++;
+		}
+		else if (lstrcmpiA(argv[seq], "-sha1") == 0) {
 			action = SHA1_ENCODE;
 			seq++;
 		}
-		else if (lstrcmpiA(argv[seq], "--md5") == 0) {
+		else if (lstrcmpiA(argv[seq], "-md5") == 0) {
 			action = MD5_ENCODE;
 			seq++;
 		}
-		else if (lstrcmpiA(argv[seq], "--zdecompress") == 0) {
+		else if (lstrcmpiA(argv[seq], "-zdecompress") == 0) {
 			action = ZDECOMPRESS;
 			seq++;			
 		}
-		else if (lstrcmpiA(argv[seq], "--zcompress") == 0) {
+		else if (lstrcmpiA(argv[seq], "-zcompress") == 0) {
 			action = ZCOMPRESS;
 			seq++;
 		}
-		else if (lstrcmpiA(argv[seq], "--gzdecompress") == 0) {
+		else if (lstrcmpiA(argv[seq], "-gzdecompress") == 0) {
 			action = GZDECOMPRESS;
 			seq++;
 		}
-		else if (lstrcmpiA(argv[seq], "--gzcompress") == 0) {
+		else if (lstrcmpiA(argv[seq], "-gzcompress") == 0) {
 			action = GZCOMPRESS;
 			seq++;
 		}
-		else if (lstrcmpiA(argv[seq], "--networktest") == 0) {
+		else if (lstrcmpiA(argv[seq], "-networktest") == 0) {
 			action = NETWORKTEST;
 			option = argv[seq + 1];
 			input = argv[seq + 2];
@@ -88,7 +100,7 @@ int main(int argc,char ** argv)
 			inSize = (unsigned __int64)argv[seq + 4];
 			seq += 5;
 		}
-		else if (lstrcmpiA(argv[seq], "-if") == 0) {
+		else if (lstrcmpiA(argv[seq], "--if") == 0) {
 			infn = argv[seq + 1];
 			if (infn == 0) {
 				break;
@@ -101,26 +113,26 @@ int main(int argc,char ** argv)
 
 			seq += 2;
 		}
-		else if (lstrcmpiA(argv[seq], "-is") == 0) {
+		else if (lstrcmpiA(argv[seq], "--is") == 0) {
 			input = argv[seq + 1];
 			inSize = lstrlenA(input);
 			seq += 2;
 		}
-		else if (lstrcmpiA(argv[seq], "-of") == 0) {
+		else if (lstrcmpiA(argv[seq], "--of") == 0) {
 
 			outfn = argv[seq + 1];
 			seq += 2;
 		}
-		else if (lstrcmpiA(argv[seq], "-os") == 0) {
+		else if (lstrcmpiA(argv[seq], "--os") == 0) {
 
 			outfn = argv[seq + 1];
 			seq += 1;
 		}
-		else if (lstrcmpiA(argv[seq], "--splitfile") == 0) {
+		else if (lstrcmpiA(argv[seq], "-splitfile") == 0) {
 			action = SPLIT_FILE_WITH_TAG;
 			seq++;
 		}
-		else if (lstrcmpiA(argv[seq], "--search") == 0) {
+		else if (lstrcmpiA(argv[seq], "-search") == 0) {
 			action = STRINGSEARCH;
 			option = argv[seq + 1];
 			input = argv[seq + 2];
@@ -128,7 +140,7 @@ int main(int argc,char ** argv)
 			inSize = lstrlenA(input);
 			seq+=4;
 		}
-		else if (lstrcmpA(argv[seq], "--proxy") == 0) {
+		else if (lstrcmpA(argv[seq], "-proxy") == 0) {
 			action = NETWORKPROXY;
 			seq++;
 		}
@@ -148,9 +160,22 @@ int main(int argc,char ** argv)
 	}
 	else if (action == BASE64_DECODE) {
 		string instr = input;
-		string outstr = base64_decode(instr);
-		output = (char*)outstr.c_str();
-		outSize = outstr.length();
+		char* out = new char[instr.length() + 16];
+		int outlen = base64_decode(instr,out);
+		output = out;
+		outSize = outlen;
+	}
+	else if (action == BASE24_CODE) {
+		output = new char[inSize + 16];
+		outSize = base24_decode(input,(int) inSize,output);
+	}
+	else if (action == URL_DECODE) {
+		output = new char[inSize + 1024];
+		outSize = Url::urldecode(input, (int)inSize, output);
+	}
+	else if (action == URL_ENCODE) {
+		output = new char[inSize*2 + 1024];
+		outSize = Url::urlencode(input, (int)inSize, output,inSize + 16);
 	}
 	else if (action == SHA1_ENCODE) {
 		if (output == 0) {
