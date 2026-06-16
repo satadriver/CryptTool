@@ -76,15 +76,15 @@ int main(int argc,char ** argv)
 			action = MD5_ENCODE;
 			seq++;
 		}
-		else if (lstrcmpiA(argv[seq], "-zdecompress") == 0) {
+		else if (lstrcmpiA(argv[seq], "-zdecomp") == 0) {
 			action = ZDECOMPRESS;
 			seq++;			
 		}
-		else if (lstrcmpiA(argv[seq], "-zcompress") == 0) {
+		else if (lstrcmpiA(argv[seq], "-zcomp") == 0) {
 			action = ZCOMPRESS;
 			seq++;
 		}
-		else if (lstrcmpiA(argv[seq], "-gzdecompress") == 0) {
+		else if (lstrcmpiA(argv[seq], "-gzdecomp") == 0) {
 			action = GZDECOMPRESS;
 			seq++;
 		}
@@ -92,7 +92,7 @@ int main(int argc,char ** argv)
 			action = GZCOMPRESS;
 			seq++;
 		}
-		else if (lstrcmpiA(argv[seq], "-networktest") == 0) {
+		else if (lstrcmpiA(argv[seq], "-network") == 0) {
 			action = NETWORKTEST;
 			option = argv[seq + 1];
 			input = argv[seq + 2];
@@ -244,7 +244,7 @@ int main(int argc,char ** argv)
 		//ret = NetworkProxy();
 	}
 	else if (action == NETWORKTEST) {
-		ret = TestNetwork(option,input, infn,(char*) inSize);
+		ret = Network(argc-2,&argv[2]);
 	}
 	else {
 		

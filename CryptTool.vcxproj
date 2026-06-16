@@ -24,6 +24,7 @@
     <ProjectGuid>{8f4d313b-49f9-4786-a139-dd5550bce086}</ProjectGuid>
     <RootNamespace>CryptTool</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>MyTool</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
