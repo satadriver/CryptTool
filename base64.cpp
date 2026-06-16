@@ -1,5 +1,5 @@
 
-
+#include <windows.h>            // ±ØÐë
 // https://github.com/ReneNyffenegger/cpp-base64
 #include "base64.h"
 #include <iostream>

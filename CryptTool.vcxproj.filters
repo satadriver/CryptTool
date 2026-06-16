@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="CryptTool.cpp">
+    <ClCompile Include="myTool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="base64.cpp">
@@ -95,7 +95,7 @@
     <ClInclude Include="network.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="CryptTool.h">
+    <ClInclude Include="myTool.h">
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="des.h">

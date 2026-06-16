@@ -111,7 +111,7 @@ int GetFunction(char* data, int size, char* filename, char* funcname) {
 					PIMAGE_IMPORT_BY_NAME pImportByName = (PIMAGE_IMPORT_BY_NAME)(data + pOrigThunk->u1.AddressOfData);
 
 					// 比较函数名
-					if (strcmp(pImportByName->Name, funcname) == 0) {
+					if (strcmp((char*)pImportByName->Name, funcname) == 0) {
 						return 1; // 找到了 DLL 和函数
 					}
 				}

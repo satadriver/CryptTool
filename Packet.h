@@ -1,3 +1,5 @@
+
+#pragma once
 #ifndef PACKET_H_H_H
 #define PACKET_H_H_H
 

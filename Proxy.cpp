@@ -1,9 +1,11 @@
 
-#define WIN32_LEAN_AND_MEAN  // 减少无关头文件
-#include <winsock2.h>
-#include <ws2tcpip.h>  // 新 API（如 inet_pton）
 
-#include <Windows.h>
+
+#include <winsock2.h>           // 1. 最先：定义 _WINSOCK2API_，阻止 winsock.h
+#include <windows.h>            // 2. 之后：检测到 _WINSOCK2API_，跳过 winsock.h
+#include <ws2tcpip.h>           // 3. 扩展 API
+
+
 #include <string>
 #include "Proxy.h"
 #include <Iptypes.h >

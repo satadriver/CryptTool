@@ -1,3 +1,5 @@
+
+#pragma once
 //sha1.h：对字符串进行sha1加密
 #include <string.h>
 #include <stdio.h>

@@ -1,7 +1,14 @@
 
-#include <openssl/des.h>
-#include <winsock2.h>
-#include <Windows.h>
+#include <winsock2.h>           // 1. 最先：定义 _WINSOCK2API_，阻止 winsock.h
+#include <windows.h>            // 2. 之后：检测到 _WINSOCK2API_，跳过 winsock.h
+#include <ws2tcpip.h>           // 3. 扩展 API
+
+#define WIN32_LEAN_AND_MEAN     // 可选：排除较少使用的 API
+
+
+
+
+
 #include <string>
 #include <iostream>
 #include <Ws2tcpip.h>

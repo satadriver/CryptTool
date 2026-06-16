@@ -1,5 +1,6 @@
 #pragma once
 
+#include <string>
 #include <winreg.h>
 
 #define SYSTEM_VERSION_WIN9X	1
@@ -37,6 +38,9 @@ int IsPeFile(char* data, int size);
 #ifdef DUMMYSTRUCTNAME2
 #undef DUMMYSTRUCTNAME2
 #endif
+
+std::wstring StringToWString_UTF8(const std::string& str);
+std::string WStringToString_UTF8(const std::wstring& wstr);
 
 #pragma pack(1)
 

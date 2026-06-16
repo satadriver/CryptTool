@@ -1,10 +1,10 @@
 
 
-
+#include <Windows.h>
 
 #include <stdio.h>
 
-#include <Windows.h>
+
 #include "utils.h"
 
 #include <lmwksta.h>
@@ -551,4 +551,21 @@ int GetResFromName(DWORD module, const char* name, DWORD type, DWORD* offset, DW
 	ResourceParser(module, (DWORD)res, res, 1, (DWORD)name, type, offset, size);
 
 	return 0;
+}
+
+
+#include <string>
+#include <locale>
+#include <codecvt> // C++17 中已弃用
+
+// string (UTF-8) 转 wstring (UTF-16)
+std::wstring StringToWString_UTF8(const std::string& str) {
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	return converter.from_bytes(str);
+}
+
+// wstring (UTF-16) 转 string (UTF-8)
+std::string WStringToString_UTF8(const std::wstring& wstr) {
+	std::wstring_convert<std::codecvt_utf8_utf16<wchar_t>> converter;
+	return converter.to_bytes(wstr);
 }
