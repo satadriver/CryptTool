@@ -164,6 +164,7 @@
   <ItemGroup>
     <ClCompile Include="base64.cpp" />
     <ClCompile Include="des.cpp" />
+    <ClCompile Include="driver.cpp" />
     <ClCompile Include="split2File.cpp" />
     <ClCompile Include="compress.cpp" />
     <ClCompile Include="myTool.cpp" />
@@ -180,6 +181,7 @@
   <ItemGroup>
     <ClInclude Include="base64.h" />
     <ClInclude Include="des.h" />
+    <ClInclude Include="driver.h" />
     <ClInclude Include="split2File.h" />
     <ClInclude Include="compress.h" />
     <ClInclude Include="myTool.h" />

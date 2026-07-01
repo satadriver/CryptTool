@@ -19,7 +19,7 @@
 #include "mytool.h"
 #include "network.h"
 #include "url.h"
-#include "utils.h"
+#include "driver.h"
 
 using namespace std;
 
@@ -95,6 +95,14 @@ int main(int argc,char ** argv)
 		}
 		else if (lstrcmpiA(argv[seq], "-gzcompress") == 0) {
 			action = GZCOMPRESS;
+			seq++;
+		}
+		else if (lstrcmpiA(argv[seq], "-loaddrv") == 0) {
+			action = LOAD_DRIVER;
+			seq++;		
+		}
+		else if (lstrcmpiA(argv[seq], "-rmvdrv") == 0) {
+			action = REMOVE_DRIVER;
 			seq++;
 		}
 		else if (lstrcmpiA(argv[seq], "-network") == 0) {
@@ -263,6 +271,12 @@ int main(int argc,char ** argv)
 		if (ret) {
 			wprintf(L"file:%ws is occupied by:%ws\r\n", wfn.c_str(), filepath.c_str());
 		}
+	}
+	else if(action == LOAD_DRIVER) {
+		ret = LoadDriver(input);
+	}
+	else if (action == REMOVE_DRIVER) {
+		ret = RemoveDriver(input);
 	}
 	else {
 		

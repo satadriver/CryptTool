@@ -57,6 +57,9 @@
     <ClCompile Include="url.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="driver.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="base64.h">
@@ -102,6 +105,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="url.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="driver.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

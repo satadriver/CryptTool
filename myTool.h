@@ -15,6 +15,8 @@
 #define URL_ENCODE		6
 #define URL_DECODE		7
 
+
+
 #define STRINGSEARCH	10
 #define NETWORKPROXY	11
 #define NETWORKTEST		12
@@ -30,6 +32,9 @@
 #define GZDECOMPRESSF	22
 #define GZCOMPRESSF		23
 
+#define LOAD_DRIVER		24
+#define REMOVE_DRIVER	25
+#define TEST_DRIVER		26
 
 
 #define SPLIT_FILE_WITH_TAG		0xffffffff
